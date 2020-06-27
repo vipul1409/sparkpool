@@ -5,12 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.apache.spark</groupId>
-  <artifactId>sessionpool</artifactId>
+  <artifactId>sparkpool</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>sessionpool</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>sparkpool</name>
+  <url>https://github.com/vipul1409/sparkpool</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
