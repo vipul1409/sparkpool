@@ -10,19 +10,22 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.spark.models.SessionResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 public class HttpUtil {
+    private static Logger LOGGER = LoggerFactory.getLogger(HttpUtil.class);
     private static CloseableHttpClient httpclient = HttpClients.createDefault();
     private static Gson gson = new GsonBuilder().create();
     public static <T> T doHttp(HttpRequestBase requestBase, Class<T> typeClass) throws IOException {
         try(CloseableHttpResponse response = httpclient.execute(requestBase)) {
             HttpEntity entity = response.getEntity();
             String responseJson = EntityUtils.toString(entity);
-            System.out.println("HTTP Response : " + responseJson);
+            LOGGER.info("HTTP Response : {}", responseJson);
             T t = gson.fromJson(responseJson, typeClass);
             return t;
         }
