@@ -13,7 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class SparkConnectionPool {
-    public static GenericObjectPool<SparkConnection> pool;
+    private static GenericObjectPool<SparkConnection> pool;
     private static GenericObjectPoolConfig config = new GenericObjectPoolConfig();
 
     static {
@@ -21,6 +21,10 @@ public class SparkConnectionPool {
         config.setMaxIdle(5);
         config.setMaxTotal(20);
         pool = new GenericObjectPool<SparkConnection>(new SparkConnectionFactory(), config);
+    }
+
+    public static GenericObjectPool<SparkConnection> getPool() {
+        return pool;
     }
 
 }

@@ -16,4 +16,9 @@ public class SparkConnectionFactory  extends BasePooledObjectFactory<SparkConnec
     public PooledObject<SparkConnection> wrap(SparkConnection sparkConnection) {
         return new DefaultPooledObject<SparkConnection>(sparkConnection);
     }
+
+    @Override
+    public void destroyObject(PooledObject<SparkConnection> pooledObject) throws Exception {
+        pooledObject.getObject().destroySession();
+    }
 }
