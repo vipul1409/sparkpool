@@ -1,4 +1,4 @@
-package org.apache.spark;
+package org.apache.spark.utils;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;

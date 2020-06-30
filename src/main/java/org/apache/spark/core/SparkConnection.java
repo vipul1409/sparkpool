@@ -1,9 +1,6 @@
-package org.apache.spark;
+package org.apache.spark.core;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.commons.pool2.PooledObjectFactory;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -12,18 +9,14 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.apache.spark.models.SessionResponse;
+import org.apache.spark.models.StatementOutput;
 import org.apache.spark.models.StatementResponse;
+import org.apache.spark.utils.HttpUtil;
+import org.apache.spark.utils.LivyConfig;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.sql.Statement;
 import java.util.Map;
 
 public class SparkConnection {
@@ -64,7 +57,7 @@ public class SparkConnection {
         return response.id;
     }
 
-    public Map<String, String> getResult(Integer statementId) throws URISyntaxException, IOException, InterruptedException {
+    public StatementOutput getResult(Integer statementId) throws URISyntaxException, IOException, InterruptedException {
         StatementResponse response = null;
         do {
             HttpGet statementPoll =
@@ -75,7 +68,7 @@ public class SparkConnection {
             Thread.sleep(1000);
         }while("waiting".equals(response.state) || "running".equals(response.state));
 
-        return response.output.data;
+        return response.output;
     }
 
     public void destroySession() throws URISyntaxException, IOException {

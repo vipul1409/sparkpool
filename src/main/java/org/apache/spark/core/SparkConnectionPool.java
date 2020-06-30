@@ -1,16 +1,8 @@
-package org.apache.spark;
+package org.apache.spark.core;
 
 
-import org.apache.commons.pool2.BasePooledObjectFactory;
-import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import org.apache.livy.LivyClient;
-import org.apache.livy.LivyClientBuilder;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class SparkConnectionPool {
     private static GenericObjectPool<SparkConnection> pool;
